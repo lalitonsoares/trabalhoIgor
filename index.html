@@ -1,0 +1,1025 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caso Bianca Ferreira</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Oswald:wght@500;600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --ink:#0b0e14;
+  --ink-2:#0f131b;
+  --panel:#141821;
+  --panel-2:#1b202b;
+  --panel-3:#232a37;
+  --line:#2a3241;
+  --paper:#efe8d4;
+  --paper-2:#e4dcc4;
+  --paper-ink:#2a2418;
+  --accent:#c23b3b;
+  --accent-dim:#7c2a2a;
+  --brass:#d8a53d;
+  --ok:#4f9d69;
+  --text-hi:#eef1f6;
+  --text-lo:#8f97a8;
+  --text-faint:#5c6577;
+}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+html,body{max-width:100%; overflow-x:hidden;}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse 900px 500px at 20% -10%, #182131 0%, transparent 60%),
+    radial-gradient(ellipse 800px 600px at 90% 10%, #1a1420 0%, transparent 55%),
+    var(--ink);
+  color:var(--text-hi);
+  font-family:'Manrope',system-ui,-apple-system,Segoe UI,sans-serif;
+  min-height:100vh;
+  padding:32px 16px 48px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+}
+@media (max-width:480px){
+  body{padding:22px 14px 32px; gap:18px;}
+  .masthead p{font-size:13px;}
+}
+.corkline{
+  position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:34px 34px;
+}
+.masthead{
+  position:relative; z-index:1;
+  width:100%; max-width:920px;
+  text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+.eyebrow{
+  font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:.28em; text-transform:uppercase;
+  font-size:12px; color:var(--brass);
+  display:flex; align-items:center; gap:10px;
+}
+.eyebrow::before,.eyebrow::after{content:"";width:28px;height:1px;background:var(--accent-dim);}
+h1{
+  font-family:'Oswald',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
+  font-size:clamp(28px,4.4vw,42px); margin:0; text-wrap:balance; color:var(--text-hi);
+}
+h1 span{color:var(--accent);}
+.masthead p{
+  max-width:620px; margin:0; color:var(--text-lo); font-size:14.5px; line-height:1.6;
+}
+.hintbar{
+  position:relative; z-index:1;
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center;
+}
+.pill{
+  font-size:12.5px; color:var(--text-lo); background:var(--panel);
+  border:1px solid var(--line); padding:7px 14px; border-radius:99px;
+  display:flex; align-items:center; gap:7px;
+}
+.pill b{color:var(--brass); font-weight:700;}
+.hintbtn{
+  font:inherit; font-size:12.5px; color:var(--ink); background:var(--brass);
+  border:none; padding:7px 14px; border-radius:99px; cursor:pointer; font-weight:700;
+  display:flex; align-items:center; gap:6px;
+}
+.hintbtn:hover{filter:brightness(1.08);}
+.hintreveal{
+  font-size:12.5px; color:var(--text-hi); background:var(--panel-3);
+  border:1px solid var(--accent-dim); padding:7px 14px; border-radius:99px;
+  display:none; align-items:center; gap:6px;
+}
+.hintreveal.show{display:flex;}
+
+/* ---------- PHONE ---------- */
+.stagewrap{position:relative; z-index:1; width:378px; height:788px;}
+.phone{
+  width:378px; height:788px;
+  background:linear-gradient(160deg,#20242e,#12141a 70%);
+  border-radius:52px;
+  padding:14px;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.7), 0 0 0 1px #2c313d, inset 0 0 0 2px #0a0b0e;
+  position:relative;
+  transform-origin:top left;
+}
+.phone::before{
+  content:""; position:absolute; left:50%; top:30px; transform:translateX(-50%);
+  width:90px; height:8px; background:#0a0b0e; border-radius:99px; z-index:30;
+}
+.screen{
+  width:100%; height:100%; border-radius:38px; overflow:hidden; position:relative;
+  background:var(--ink-2);
+  font-family:'Manrope',sans-serif;
+}
+.statusbar{
+  position:absolute; top:0; left:0; right:0; height:40px; z-index:20;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 26px; font-size:12.5px; font-weight:700; color:var(--text-hi);
+  font-variant-numeric:tabular-nums;
+  pointer-events:none;
+}
+.statusbar .icons{display:flex; gap:5px; align-items:center; font-size:13px;}
+
+/* screens are stacked, one active at a time */
+.view{position:absolute; inset:0; display:none; flex-direction:column;}
+.view.active{display:flex;}
+
+/* ---- lock screen ---- */
+#lock{
+  background:
+    linear-gradient(180deg, rgba(11,14,20,.15), rgba(11,14,20,.75) 60%, #0b0e14 100%),
+    linear-gradient(160deg,#2b3245,#12151c 65%);
+  justify-content:flex-start; align-items:center; padding-top:78px; color:var(--text-hi);
+}
+.lock-time{font-size:62px; font-weight:800; letter-spacing:-1px; font-variant-numeric:tabular-nums;}
+.lock-date{font-size:14px; color:var(--text-lo); margin-top:2px; text-transform:capitalize;}
+.lock-case{
+  margin-top:22px; display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.lock-case .tag{
+  font-family:'Oswald',sans-serif; font-size:10.5px; letter-spacing:.24em; color:var(--accent);
+  border:1px solid var(--accent-dim); padding:3px 10px; border-radius:99px; text-transform:uppercase;
+}
+.lock-case b{font-size:13px; color:var(--text-lo); font-weight:600;}
+.dots{display:flex; gap:16px; margin:30px 0 22px;}
+.dot{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--text-lo); transition:.15s;}
+.dot.filled{background:var(--brass); border-color:var(--brass);}
+.dot.err{background:var(--accent); border-color:var(--accent);}
+.keypad{display:grid; grid-template-columns:repeat(3,64px); gap:16px; justify-content:center;}
+.key{
+  width:64px; height:64px; border-radius:50%; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.09); color:var(--text-hi); font-size:22px; font-weight:600;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; user-select:none;
+}
+.key:active{background:rgba(255,255,255,.16);}
+.key.ghost{background:transparent; border:none;}
+.shake{animation:shake .4s;}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+
+/* ---- home screen ---- */
+#home{background:
+    radial-gradient(ellipse 300px 200px at 30% 10%, #2e3a52 0%, transparent 60%),
+    linear-gradient(160deg,#1b2230,#10131a 70%);
+  padding-top:46px;}
+.appgrid{
+  flex:1; display:grid; grid-template-columns:repeat(4,1fr); gap:20px 10px;
+  padding:14px 20px 8px; align-content:start; overflow-y:auto;
+}
+.appicon{display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;}
+.appicon .glyph{
+  width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center;
+  font-size:25px; box-shadow:0 4px 10px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.06);
+  position:relative;
+}
+.appicon .lbl{font-size:10.5px; color:var(--text-hi); font-weight:600; text-align:center; line-height:1.2;}
+.badge{
+  position:absolute; top:-4px; right:-4px; background:var(--accent); color:#fff; font-size:9.5px;
+  font-weight:800; min-width:16px; height:16px; border-radius:99px; display:flex; align-items:center; justify-content:center; padding:0 4px;
+  box-shadow:0 0 0 2px var(--ink-2);
+}
+.dock{
+  margin:0 14px 22px; padding:10px 16px; background:rgba(255,255,255,.06); border-radius:26px;
+  display:flex; justify-content:space-around; backdrop-filter:blur(4px);
+}
+.dock .appicon .lbl{display:none;}
+
+/* ---- app header ---- */
+.apphead{
+  padding:48px 16px 12px; display:flex; align-items:center; gap:10px; flex-shrink:0;
+  border-bottom:1px solid var(--line); background:var(--panel);
+}
+.backbtn{
+  width:32px; height:32px; border-radius:50%; background:var(--panel-3); border:none; color:var(--text-hi);
+  font-size:16px; display:flex; align-items:center; justify-content:center; cursor:pointer;
+}
+.apphead h2{font-size:16px; margin:0; font-weight:700; flex:1;}
+.apphead .sub{font-size:11px; color:var(--text-lo); font-weight:500;}
+.appbody{flex:1; overflow-y:auto; background:var(--ink-2);}
+.homebar{
+  flex-shrink:0; padding:8px 0 10px; display:flex; justify-content:center; background:var(--ink-2);
+}
+.homebar .grip{width:120px; height:5px; border-radius:99px; background:var(--text-faint); cursor:pointer;}
+
+/* ---------- generic list rows ---------- */
+.row{
+  display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid var(--line);
+  cursor:pointer;
+}
+.row:active{background:var(--panel);}
+.avatar{
+  width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:19px; flex-shrink:0; box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.row .main{flex:1; min-width:0;}
+.row .name{font-size:14px; font-weight:700; color:var(--text-hi);}
+.row .prev{font-size:12.5px; color:var(--text-lo); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px;}
+.row .meta{font-size:10.5px; color:var(--text-faint); text-align:right; flex-shrink:0;}
+
+/* ---------- messages thread ---------- */
+.thread{padding:14px 12px 20px; display:flex; flex-direction:column; gap:10px;}
+.bubblewrap{display:flex; flex-direction:column;}
+.bubblewrap.me{align-items:flex-end;}
+.bubblewrap.them{align-items:flex-start;}
+.bubble{
+  max-width:76%; padding:9px 13px; border-radius:16px; font-size:13.5px; line-height:1.45;
+}
+.bubblewrap.me .bubble{background:var(--brass); color:#241c07; border-bottom-right-radius:4px;}
+.bubblewrap.them .bubble{background:var(--panel-3); color:var(--text-hi); border-bottom-left-radius:4px;}
+.bubble.deleted{background:transparent; border:1px dashed var(--accent-dim); color:var(--text-faint); font-style:italic;}
+.btime{font-size:10px; color:var(--text-faint); margin-top:3px; padding:0 4px;}
+
+/* ---------- paper / document look ---------- */
+.paper{
+  background:var(--paper); color:var(--paper-ink); border-radius:6px; padding:16px 18px;
+  font-family:'Special Elite',monospace; font-size:13px; line-height:1.65;
+  box-shadow:0 8px 18px rgba(0,0,0,.35);
+  position:relative;
+}
+.paper + .paper{margin-top:14px;}
+.paper .stamp{
+  font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:.16em; font-size:10px;
+  color:var(--accent-dim); text-transform:uppercase; border:1.5px solid var(--accent-dim);
+  display:inline-block; padding:2px 8px; border-radius:3px; transform:rotate(-3deg); margin-bottom:8px;
+}
+.papergrid{padding:14px; display:flex; flex-direction:column;}
+
+/* ---------- bank ---------- */
+.balancecard{
+  margin:14px; padding:18px; border-radius:14px; background:linear-gradient(135deg,#1c2436,#141a26);
+  border:1px solid var(--line);
+}
+.balancecard .who{font-size:11px; color:var(--text-lo); text-transform:uppercase; letter-spacing:.1em; font-family:'Oswald',sans-serif;}
+.balancecard .amt{font-size:26px; font-weight:800; margin-top:6px; font-variant-numeric:tabular-nums;}
+.txn{display:flex; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--line); gap:10px;}
+.txn .t-name{font-size:13px; font-weight:700;}
+.txn .t-sub{font-size:11px; color:var(--text-lo); margin-top:2px;}
+.txn .t-amt{font-size:13.5px; font-weight:800; font-variant-numeric:tabular-nums; flex-shrink:0;}
+.t-amt.neg{color:var(--accent);}
+.t-amt.pos{color:var(--ok);}
+.flag{font-size:9.5px; color:var(--accent); font-family:'Oswald',sans-serif; letter-spacing:.08em;}
+
+/* ---------- gallery ---------- */
+.gallerygrid{display:grid; grid-template-columns:repeat(3,1fr); gap:3px; padding:3px;}
+.gtile{
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:26px;
+  position:relative; cursor:pointer;
+}
+.gtile .gcap{
+  position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,.55); color:#fff; font-size:8.5px;
+  padding:3px 4px; line-height:1.2;
+}
+
+/* ---------- cameras ---------- */
+.camcard{margin:12px 14px; border-radius:12px; overflow:hidden; border:1px solid var(--line); background:var(--panel);}
+.camfeed{
+  aspect-ratio:16/10; background:
+    repeating-linear-gradient(0deg,#1a1e26,#1a1e26 2px,#15181f 2px,#15181f 4px);
+  display:flex; align-items:center; justify-content:center; position:relative; color:var(--text-faint); font-size:12px;
+}
+.camfeed::after{content:"● REC"; position:absolute; top:8px; left:10px; color:var(--accent); font-size:10px; font-weight:800; letter-spacing:.05em;}
+.camfeed .ts{position:absolute; bottom:8px; right:10px; font-size:10px; color:var(--text-lo); font-variant-numeric:tabular-nums;}
+.caminfo{padding:11px 13px;}
+.caminfo .cname{font-size:13px; font-weight:700;}
+.caminfo .cdesc{font-size:12px; color:var(--text-lo); margin-top:4px; line-height:1.5;}
+
+/* ---------- timeline ---------- */
+.tl{padding:18px 18px 30px 26px; position:relative;}
+.tl::before{content:""; position:absolute; left:34px; top:20px; bottom:20px; width:2px; background:var(--line);}
+.tlitem{position:relative; padding-left:26px; padding-bottom:20px;}
+.tlitem::before{
+  content:""; position:absolute; left:-2px; top:3px; width:10px; height:10px; border-radius:50%;
+  background:var(--brass); box-shadow:0 0 0 3px var(--ink-2);
+}
+.tlitem .ttime{font-family:'Oswald',sans-serif; font-size:12px; color:var(--brass); font-weight:600; letter-spacing:.05em;}
+.tlitem .ttext{font-size:13px; margin-top:3px; line-height:1.5;}
+
+/* ---------- hypotheses ---------- */
+.hypo{margin:14px; padding:16px; border-radius:12px; border:1px solid var(--line); background:var(--panel);}
+.hypo h3{margin:0 0 8px; font-size:14px; font-family:'Oswald',sans-serif; letter-spacing:.03em;}
+.hypo .cols{display:flex; flex-direction:column; gap:10px;}
+.hypo .col b{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; font-family:'Oswald',sans-serif;}
+.hypo .col.favor b{color:var(--ok);}
+.hypo .col.contra b{color:var(--accent);}
+.hypo ul{margin:5px 0 0; padding-left:18px; font-size:12.5px; line-height:1.55; color:var(--text-hi);}
+
+/* ---------- clues ---------- */
+.cluecard{margin:12px 14px; border-radius:12px; background:var(--panel); border:1px solid var(--line); overflow:hidden;}
+.clueh{display:flex; align-items:center; gap:10px; padding:13px; cursor:pointer;}
+.clueh .gl{font-size:20px;}
+.clueh .ct{flex:1;}
+.clueh .ct b{font-size:13.5px;}
+.clueh .ct span{display:block; font-size:11px; color:var(--text-lo); margin-top:1px;}
+.clueh .chk{font-size:11px; color:var(--ok); font-weight:700;}
+.cluebody{display:none; padding:0 15px 14px; font-size:12.5px; color:var(--text-hi); line-height:1.55;}
+.cluebody.open{display:block;}
+
+/* ---------- vault / cofre ---------- */
+.vault{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:20px; text-align:center;}
+.vaulticon{font-size:44px;}
+.vault h3{margin:0; font-size:16px;}
+.vault p{margin:0; font-size:12.5px; color:var(--text-lo); max-width:260px;}
+.vaultkeys{display:grid; grid-template-columns:repeat(3,54px); gap:12px; margin-top:6px;}
+.vkey{width:54px; height:54px; border-radius:14px; background:var(--panel-3); border:1px solid var(--line); color:var(--text-hi); font-size:18px; font-weight:700; cursor:pointer;}
+.vdots{display:flex; gap:12px; margin:4px 0;}
+.vdots .dot{width:11px;height:11px;}
+
+/* ---------- misc ---------- */
+.sectionlbl{
+  font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--text-faint); padding:14px 16px 6px;
+}
+.empty{padding:40px 20px; text-align:center; color:var(--text-faint); font-size:13px;}
+.foot{position:relative; z-index:1; color:var(--text-faint); font-size:11.5px; text-align:center; max-width:520px;}
+</style>
+
+<div class="corkline"></div>
+
+<div class="masthead">
+  <div class="eyebrow">Inquérito Policial · Simulação Didática</div>
+  <h1>Caso <span>Bianca Ferreira</span></h1>
+  <p>Este é o celular recuperado da vítima, reconstituído para fins de investigação. Todos os nomes, mensagens e documentos são fictícios, criados para uma atividade escolar de raciocínio investigativo. Desbloqueie o aparelho e reúna as evidências para sustentar sua hipótese sobre o desaparecimento.</p>
+</div>
+
+<div class="hintbar">
+  <span class="pill">🔐 PIN de 4 dígitos exigido</span>
+  <button class="hintbtn" id="hintbtn">💡 Pedir uma dica</button>
+  <span class="hintreveal" id="hintreveal">O PIN é o horário exato em que a PM foi acionada, no formato HHMM.</span>
+</div>
+
+<div class="stagewrap">
+  <div class="phone">
+    <div class="screen" id="screen">
+      <div class="statusbar">
+        <span id="clock">21:04</span>
+        <span class="icons">📶 🔋</span>
+      </div>
+
+      <!-- LOCK -->
+      <div class="view active" id="view-lock">
+        <div id="lock" style="flex:1;display:flex;flex-direction:column;align-items:center;">
+          <div class="lock-time" id="locktime">21:04</div>
+          <div class="lock-date" id="lockdate">domingo, 14 de setembro</div>
+          <div class="lock-case">
+            <span class="tag">Evidência apreendida</span>
+            <b>Smartphone de Bianca Ferreira</b>
+          </div>
+          <div class="dots" id="dots">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          </div>
+          <div class="keypad" id="keypad"></div>
+        </div>
+      </div>
+
+      <!-- HOME -->
+      <div class="view" id="view-home">
+        <div id="home" style="flex:1;display:flex;flex-direction:column;">
+          <div class="appgrid" id="appgrid"></div>
+          <div class="dock" id="dock"></div>
+        </div>
+      </div>
+
+      <!-- APP (generic) -->
+      <div class="view" id="view-app">
+        <div class="apphead">
+          <button class="backbtn" id="backbtn">←</button>
+          <div style="flex:1">
+            <h2 id="apptitle">App</h2>
+            <div class="sub" id="appsub"></div>
+          </div>
+        </div>
+        <div class="appbody" id="appbody"></div>
+        <div class="homebar"><div class="grip" id="gripbtn"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">Simulação offline — nenhum dado sai deste navegador. Feito para atividade de Ensino Médio. Toque nos ícones para investigar cada app do aparelho.</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   DADOS DO CASO (100% fictício)
+   ============================================================ */
+const PIN = "0655";
+const VAULT_CODE = "0917"; // data de nascimento (17/09) invertida
+
+const suspects = [
+  {id:"rafael",  name:"Rafael Souza",      role:"Namorado",              avatar:"🧑", color:"#3a4a63", phone:"(11) 98211-4432"},
+  {id:"camila",  name:"Camila Duarte",     role:"Melhor amiga",          avatar:"👩", color:"#5a3a63", phone:"(11) 98744-2210"},
+  {id:"eduardo", name:"Eduardo Lima",      role:"Padrasto",              avatar:"👨", color:"#63463a", phone:"(11) 97321-9080"},
+  {id:"juliana", name:"Juliana Passos",    role:"Vizinha",               avatar:"👩‍🦱", color:"#3a6350", phone:"(11) 96654-1123"},
+  {id:"thiago",  name:"Thiago Nascimento", role:"Ex-namorado / colega",  avatar:"🧑‍🦰", color:"#633a3a", phone:"(11) 98890-3345"},
+  {id:"marcos",  name:"Marcos Vieira",     role:"Professor particular",  avatar:"👨‍🏫", color:"#3a5763", phone:"(11) 99110-7765"},
+];
+const others = [
+  {id:"mae", name:"Sandra Ferreira (mãe)", role:"Familiar", avatar:"👩‍🦳", color:"#4a4a4a", phone:"(11) 98000-1010"},
+  {id:"pai", name:"Marcelo Ferreira (pai)", role:"Familiar — mora em outra cidade", avatar:"👨‍🦲", color:"#4a4a4a", phone:"(19) 98555-7788"},
+  {id:"delegacia", name:"3ª Delegacia — Plantão", role:"Autoridade", avatar:"👮", color:"#2c3e57", phone:"(11) 190"},
+  {id:"escola", name:"Colégio Horizonte", role:"Secretaria", avatar:"🏫", color:"#4a4a4a", phone:"(11) 3355-2200"},
+];
+function bySuspect(id){return suspects.find(s=>s.id===id);}
+
+const messages = {
+  rafael:[
+    {who:"them",t:"Bia, me responde. Eu vi vc saindo com o Thiago na festa, que isso?",time:"21:47"},
+    {who:"me",t:"Não é da sua conta. Já cansei dessa ciumeira.",time:"21:50"},
+    {who:"them",t:"Não vou deixar vc me trocar por aquele cara de novo.",time:"21:52"},
+    {who:"me",t:"Rafael, para de me perseguir. Sério.",time:"22:03"},
+    {who:"them",t:"Desculpa. Eu te amo, não faz isso comigo.",time:"23:10"},
+    {who:"them",t:"Bia? Cadê você? Não chegou em casa ainda?",time:"00:42"},
+    {who:"them",t:"Fala comigo pelo amor de Deus, tua mãe me ligou desesperada.",time:"07:15"},
+  ],
+  camila:[
+    {who:"me",t:"Cam, some comigo essa noite. Preciso sair daqui.",time:"20:12"},
+    {who:"them",t:"Vc tem certeza? Isso é loucura, Bia.",time:"20:15"},
+    {who:"me",t:"Já decidi. Depois te conto os detalhes, só guarda esse segredo.",time:"20:16"},
+    {who:"them",t:"Ok, mas me manda mensagem assim que chegar. To preocupada.",time:"20:18"},
+    {who:"them",t:"Bia?? Já faz 2 dias, responde.",time:"—"},
+    {who:"them",t:"Eu não aguento mais esse silêncio. Vou ter que contar pra polícia o que sei.",time:"—"},
+  ],
+  eduardo:[
+    {who:"them",t:"Bianca, precisamos conversar sobre o que sua mãe descobriu.",time:"19:30"},
+    {who:"me",t:"Não tenho nada pra falar com você.",time:"19:33"},
+    {who:"them",t:"Isso não vai ficar assim.",time:"19:35"},
+    {who:"them",t:"Onde você está? Sua mãe está desesperada.",time:"23:50"},
+  ],
+  juliana:[
+    {who:"them",t:"Bianca, vi um carro estranho parado na sua rua ontem à noite. Tudo bem por aí?",time:"18:02"},
+    {who:"me",t:"Vi também, meio esquisito. Deve ser visita de alguém.",time:"18:05"},
+    {who:"them",t:"Se precisar de algo é só bater na minha porta.",time:"18:06"},
+  ],
+  thiago:[
+    {who:"them",t:"Vc não devia ter voltado com o Rafael.",time:"15:40"},
+    {who:"them",t:"Um dia vc vai perceber que eu era o certo.",time:"15:42"},
+    {who:"me",t:"Thiago, já falamos sobre isso. Para de mandar mensagem.",time:"15:50"},
+    {who:"them",t:"Vc não manda em mim.",time:"15:53"},
+  ],
+  marcos:[
+    {who:"them",t:"Bianca, sobre nosso 'combinado' da prova — continua guardado?",time:"12:10"},
+    {who:"me",t:"Sim, professor. Ninguém vai saber da nota que o senhor lançou sem eu ter feito a prova.",time:"12:15"},
+    {who:"them",t:"Ótimo. Nos vemos na aula de quinta.",time:"12:16"},
+  ],
+};
+
+const deletedMessages = [
+  {from:"thiago", t:"Se eu não posso ter você, ninguém mais vai. Vc vai se arrepender disso.", time:"quinta, 22:58", note:"Apagada pelo próprio Thiago cerca de 1h depois de enviada. Recuperada da cópia de nuvem."},
+  {from:"foto", t:"Foto apagada: recorte de um carro prateado, placa parcialmente visível, tirada de dentro de casa.", time:"sábado, 22:33", note:"Encontrada na lixeira do sistema, criada 30s depois da foto que Juliana enviou por mensagem."},
+  {from:"audio", t:"Nota de voz apagada (transcrição): \"Se tudo der certo, amanhã a essa hora eu já vou estar longe daqui.\"", time:"sábado, 19:52", note:"Gravada por Bianca para si mesma, nunca enviada a ninguém."},
+];
+
+const bankBianca = [
+  {name:"Saque — Caixa eletrônico Av. Central", sub:"Débito em conta corrente", amt:-800, time:"sáb, 17:40", flag:null},
+  {name:"Rodoviária Tietê — Bilhete de ônibus", sub:"Compra no guichê físico", amt:-120, time:"sáb, 18:08", flag:"⚑ Destino: Guarapari-ES"},
+  {name:"Pix recebido — Camila Duarte", sub:"Memo: \"pra ajudar\"", amt:50, time:"sáb, 19:00", flag:null},
+  {name:"Lanchonete Bom Sabor", sub:"Cartão de débito", amt:-18, time:"sáb, 12:30", flag:null},
+  {name:"Mesada — Sandra Ferreira", sub:"Transferência mensal", amt:300, time:"sex, 09:00", flag:null},
+];
+const bankEduardo = [
+  {name:"Seguradora Vitallis", sub:"1ª parcela — apólice nova", amt:-450, time:"5 semanas antes", flag:"⚑ Beneficiária: Bianca Ferreira"},
+  {name:"Seguradora Vitallis", sub:"2ª parcela — apólice nova", amt:-450, time:"1 semana antes", flag:"⚑ Valor segurado: R$ 300.000"},
+  {name:"Financeira Coral", sub:"Pagamento de dívida em atraso", amt:-1200, time:"2 semanas antes", flag:null},
+];
+
+const cameras = [
+  {name:"Câmera — Portão de casa", ts:"sáb · 22:14", desc:"Bianca sai sozinha pelo portão lateral, sem casaco, carregando uma mochila pequena. Não olha para trás."},
+  {name:"Câmera — Esquina Rua das Flores", ts:"sáb · 22:31", desc:"Um carro prateado, modelo não identificado, para por cerca de 40 segundos. A imagem não mostra o rosto de quem dirige."},
+  {name:"Câmera — Rodoviária Tietê (saguão)", ts:"sáb · 23:05", desc:"Nenhum registro de Bianca embarcando em qualquer ônibus após este horário, apesar da passagem comprada às 18:08."},
+];
+
+const gallery = [
+  {e:"📸", cap:"Selfie com Rafael, festa de 2 dias antes"},
+  {e:"📓", cap:"Página rasgada do diário de Bianca"},
+  {e:"💬", cap:"Print de conversa apagada (recuperado)"},
+  {e:"🧾", cap:"Foto do bilhete de ônibus comprado"},
+  {e:"🚗", cap:"Foto do carro prateado, tirada por Juliana"},
+  {e:"✉️", cap:"Bilhete deixado sobre a cômoda do quarto"},
+  {e:"🏫", cap:"Foto da sala de aula, colada no mural da turma"},
+  {e:"🎂", cap:"Aniversário de Bianca, 6 meses atrás"},
+  {e:"🐶", cap:"Cachorro da família, Simba"},
+];
+
+const calls = [
+  {who:"rafael", dir:"in", dur:"20 min", time:"sáb, 21:40"},
+  {who:"camila", dir:"out", dur:"12 min", time:"sáb, 20:10"},
+  {who:"eduardo", dir:"miss", dur:"—", time:"sáb, 19:31"},
+  {who:"thiago", dir:"in", dur:"2 min", time:"sáb, 15:38"},
+  {who:null, label:"Número desconhecido", dir:"in", dur:"1 min", time:"sáb, 22:50", flag:true},
+  {who:"marcos", dir:"out", dur:"5 min", time:"qui, 12:16"},
+];
+
+const locations = [
+  {t:"17:35", place:"Casa — Rua das Acácias, 120"},
+  {t:"17:42", place:"Caixa eletrônico, Av. Central"},
+  {t:"18:08", place:"Rodoviária Tietê"},
+  {t:"19:00", place:"Casa — retorno registrado"},
+  {t:"22:14", place:"Portão de casa — saída"},
+  {t:"22:30", place:"Rua das Flores"},
+  {t:"22:50", place:"Sinal perdido — aparelho desligado ou sem cobertura"},
+];
+
+const notes = [
+  {title:"Sem título", date:"4 dias atrás", body:"Não aguento mais essa casa. Vou juntando dinheiro escondido, um pouco a cada semana."},
+  {title:"Sem título", date:"2 dias atrás", body:"Cam topou me ajudar. Ninguém pode saber, principalmente o Eduardo. Se ele desconfiar de alguma coisa, estraga tudo."},
+  {title:"Sem título", date:"ontem", body:"O código do cofre continua sendo o mesmo de sempre: minha data de nascimento ao contrário."},
+  {title:"Sem título", date:"hoje", body:"Hoje o Thiago me mandou uma mensagem que me deixou com medo de verdade. Vou apagar antes que alguém veja."},
+  {title:"Sem título", date:"hoje", body:"Se alguma coisa acontecer comigo, olhem o arquivo azul."},
+];
+
+const files = [
+  {icon:"🪪", name:"RG_Bianca_Ferreira.pdf", size:"212 KB", body:"REGISTRO GERAL\nNome: Bianca Ferreira\nNascimento: 17/09/2008\nFiliação: Sandra Ferreira e Marcelo Ferreira\nNaturalidade: São Paulo — SP"},
+  {icon:"📊", name:"Boletim_Escolar_3ºB.pdf", size:"340 KB", body:"COLÉGIO HORIZONTE — BOLETIM PARCIAL\nAluna: Bianca Ferreira — 3º ano B\nMatemática (reforço particular c/ Prof. Marcos Vieira): 9,5\nDemais disciplinas: média 6,8\nObs.: nota de Matemática lançada fora do sistema de provas."},
+  {icon:"📄", name:"Apolice_Seguro_Vitallis.pdf", size:"1,1 MB", body:"SEGURADORA VITALLIS — APÓLICE Nº 88213-A\nSegurado: Bianca Ferreira (menor)\nResponsável / contratante: Eduardo Lima\nBeneficiário em caso de sinistro: Eduardo Lima\nValor segurado: R$ 300.000,00\nContratada em: 5 semanas antes do desaparecimento", flag:"⚑ Apólice contratada sem conhecimento da mãe, segundo depoimento"},
+];
+
+const timeline = [
+  {t:"12:10", txt:"Troca de mensagens entre Bianca e o professor Marcos Vieira sobre uma nota lançada sem prova."},
+  {t:"15:38", txt:"Thiago envia mensagens insistentes sobre o relacionamento de Bianca com Rafael."},
+  {t:"17:35", txt:"Localização registra Bianca em casa."},
+  {t:"17:40", txt:"Saque de R$ 800 em caixa eletrônico da Av. Central."},
+  {t:"18:08", txt:"Compra de passagem de ônibus para Guarapari-ES na rodoviária Tietê."},
+  {t:"19:00", txt:"Bianca retorna para casa."},
+  {t:"19:30", txt:"Eduardo confronta Bianca sobre \"algo que a mãe descobriu\"."},
+  {t:"19:47–20:18", txt:"Bianca combina com Camila, por mensagem, sumir naquela noite."},
+  {t:"20:10", txt:"Ligação de 12 minutos entre Bianca e Camila."},
+  {t:"21:40–22:03", txt:"Discussão por mensagem com o namorado Rafael, com ciúmes do Thiago."},
+  {t:"22:14", txt:"Câmera do portão registra Bianca saindo de casa sozinha, com mochila pequena."},
+  {t:"22:31", txt:"Câmera da esquina registra carro prateado parado por 40 segundos."},
+  {t:"22:33", txt:"Foto apagada de dentro de casa mostra o mesmo carro."},
+  {t:"22:50", txt:"Chamada de 1 minuto de número desconhecido. Pouco depois, o celular sai do ar."},
+  {t:"23:05", txt:"Câmera da rodoviária não mostra Bianca embarcando, apesar da passagem comprada."},
+  {t:"dom, 06:55", txt:"Sandra Ferreira percebe a ausência da filha e aciona a Polícia Militar."},
+  {t:"+2 dias", txt:"Camila ameaça, por mensagem, procurar a polícia com o que sabe."},
+  {t:"+3 dias", txt:"Perícia recupera mensagens e arquivos apagados do aparelho."},
+];
+
+const clues = [
+  {icon:"🎒", title:"Saque de dinheiro antes do sumiço", where:"Extrato bancário", body:"R$ 800 sacados horas antes do desaparecimento — quantia incomum para uma adolescente, compatível com uma viagem planejada."},
+  {icon:"🚌", title:"Passagem de ônibus para Guarapari-ES", where:"Extrato bancário", body:"Comprada às 18:08 no guichê físico da rodoviária. Nenhuma câmera registra embarque com esse destino após às 23h."},
+  {icon:"🚗", title:"Carro prateado não identificado", where:"Câmeras / Galeria", body:"Aparece parado na esquina minutos depois da saída de Bianca de casa. A vizinha Juliana já tinha notado o mesmo carro em dias anteriores."},
+  {icon:"📞", title:"Ligação de número desconhecido", where:"Histórico de ligações", body:"Um minuto de duração, às 22:50 — logo antes do celular perder o sinal de vez."},
+  {icon:"📄", title:"Apólice de seguro suspeita", where:"Arquivos", body:"Contratada pelo padrasto Eduardo cinco semanas antes, com Bianca como segurada e ele como único beneficiário — R$ 300.000."},
+  {icon:"💬", title:"Ameaça apagada do Thiago", where:"Lixeira", body:"Mensagem apagada após envio: \"Se eu não posso ter você, ninguém mais vai.\" Ele alega que foi \"raiva do momento\"."},
+  {icon:"🔑", title:"Código de um cofre pessoal", where:"Notas", body:"Bianca escreveu que o código de um cofre é \"a data de nascimento ao contrário\" — e pediu que olhassem um arquivo azul se algo acontecesse."},
+  {icon:"✉️", title:"Bilhete na cômoda do quarto", where:"Galeria", body:"Fotografado pela perícia, dizia apenas: \"Não me procurem. Preciso ficar longe por um tempo. — B\"."},
+];
+
+const hypotheses = [
+  {title:"Hipótese 1 — Fuga voluntária planejada", favor:[
+      "Saque de R$ 800 horas antes de sumir",
+      "Compra de passagem de ônibus no mesmo dia",
+      "Mensagens combinando a fuga com Camila",
+      "Nota de voz apagada confirmando o plano",
+      "Bilhete deixado na cômoda pedindo para não a procurarem",
+    ], contra:[
+      "Nenhuma câmera registra embarque no ônibus",
+      "O sinal do celular some de forma abrupta, não gradual",
+      "Presença de um carro não identificado no momento da saída",
+    ]},
+  {title:"Hipótese 2 — Sequestro por terceiro desconhecido", favor:[
+      "Carro prateado rondando a rua havia dias, segundo vizinha",
+      "Carro parado por 40s no momento exato da saída de Bianca",
+      "Ligação de número desconhecido minutos antes do celular sair do ar",
+    ], contra:[
+      "Nenhuma testemunha viu sinais de força ou resistência",
+      "A fuga já vinha sendo combinada havia dias com a amiga",
+      "Não há pedido de resgate ou contato posterior",
+    ]},
+  {title:"Hipótese 3 — Envolvimento de alguém próximo", favor:[
+      "Apólice de seguro de R$ 300.000 contratada pelo padrasto",
+      "Discussão entre Bianca e o padrasto horas antes do sumiço",
+      "Ameaça apagada enviada pelo ex-namorado Thiago",
+    ], contra:[
+      "Eduardo alega ter ficado em casa com a mãe de Bianca a noite toda",
+      "Thiago tem registro de chamada feita de outro bairro às 23h",
+      "Nenhuma evidência física liga qualquer suspeito ao carro prateado",
+    ]},
+];
+
+/* ============================================================
+   APPS (definição da grade do celular)
+   ============================================================ */
+const apps = [
+  {id:"mensagens", icon:"💬", label:"Mensagens", bg:"#2c5f4f", badge:6},
+  {id:"banco",     icon:"🏦", label:"Banco",     bg:"#2c4a5f"},
+  {id:"cameras",   icon:"📹", label:"Câmeras",   bg:"#5f2c2c"},
+  {id:"galeria",   icon:"📷", label:"Galeria",   bg:"#5f4a2c"},
+  {id:"ligacoes",  icon:"📞", label:"Ligações",  bg:"#2c5f4f"},
+  {id:"local",     icon:"📍", label:"Localização", bg:"#4a2c5f"},
+  {id:"notas",     icon:"📝", label:"Notas",     bg:"#5f5a2c"},
+  {id:"arquivos",  icon:"📁", label:"Arquivos",  bg:"#2c5f5a"},
+  {id:"cofre",     icon:"🔒", label:"Arquivo Azul", bg:"#26365f"},
+  {id:"lixeira",   icon:"🗑️", label:"Lixeira",   bg:"#4a4a4a", badge:3},
+  {id:"contatos",  icon:"👤", label:"Contatos",  bg:"#2c4a5f"},
+  {id:"linha",     icon:"🕒", label:"Linha do Tempo", bg:"#5f3a2c"},
+  {id:"pistas",    icon:"🔎", label:"Pistas",    bg:"#3a5f2c"},
+  {id:"inquerito", icon:"🗂️", label:"Inquérito", bg:"#5f2c4a"},
+];
+const dockApps = ["mensagens","ligacoes","cameras","inquerito"];
+
+/* ============================================================
+   ESTADO / NAVEGAÇÃO
+   ============================================================ */
+let state = {screen:"lock", app:null, sub:null, pin:"", err:false};
+let vaultUnlocked = false, vaultCode = "";
+try{ vaultUnlocked = sessionStorage.getItem("cofreUnlocked")==="1"; }catch(e){}
+let openClue = null;
+
+const $ = sel => document.querySelector(sel);
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+
+function initials(name){return name.split(" ").map(w=>w[0]).slice(0,2).join("");}
+
+/* ---- clock ---- */
+function tick(){
+  const d = new Date();
+  const hh = String(d.getHours()).padStart(2,"0"), mm = String(d.getMinutes()).padStart(2,"0");
+  const time = hh+":"+mm;
+  $("#clock").textContent = time;
+  $("#locktime").textContent = time;
+  const days=["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
+  const months=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+  $("#lockdate").textContent = days[d.getDay()]+", "+d.getDate()+" de "+months[d.getMonth()];
+}
+tick(); setInterval(tick,15000);
+
+/* ---- hint button ---- */
+$("#hintbtn").addEventListener("click",()=>{
+  $("#hintreveal").classList.add("show");
+  $("#hintbtn").style.display="none";
+});
+
+/* ---- lock keypad ---- */
+function buildKeypad(){
+  const kp = $("#keypad"); kp.innerHTML="";
+  const layout = ["1","2","3","4","5","6","7","8","9","","0","⌫"];
+  layout.forEach(k=>{
+    const b=document.createElement("div");
+    b.className="key"+(k===""?" ghost":"");
+    b.textContent=k;
+    if(k!=="") b.addEventListener("click",()=>pressKey(k));
+    kp.appendChild(b);
+  });
+}
+function renderDots(){
+  const dots = $("#dots").children;
+  for(let i=0;i<4;i++){
+    dots[i].className = "dot" + (i<state.pin.length?" filled":"") + (state.err?" err":"");
+  }
+}
+function pressKey(k){
+  if(state.err) return;
+  if(k==="⌫"){ state.pin = state.pin.slice(0,-1); renderDots(); return; }
+  if(state.pin.length>=4) return;
+  state.pin += k;
+  renderDots();
+  if(state.pin.length===4){
+    if(state.pin===PIN){
+      setTimeout(()=>{ goHome(); },180);
+    } else {
+      state.err = true;
+      $("#dots").classList.add("shake");
+      renderDots();
+      setTimeout(()=>{
+        $("#dots").classList.remove("shake");
+        state.pin=""; state.err=false; renderDots();
+      },500);
+    }
+  }
+}
+buildKeypad(); renderDots();
+
+/* ---- screen switching ---- */
+function showView(id){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  $("#"+id).classList.add("active");
+}
+function goHome(){ state.screen="home"; state.app=null; state.sub=null; showView("view-home"); buildHome(); }
+function goBack(){
+  if(state.sub){ state.sub=null; renderApp(); }
+  else { goHome(); }
+}
+$("#backbtn").addEventListener("click",goBack);
+$("#gripbtn").addEventListener("click",goHome);
+
+function openApp(id){
+  state.screen="app"; state.app=id; state.sub=null;
+  showView("view-app");
+  renderApp();
+}
+
+/* ---- home grid ---- */
+function iconHTML(a){
+  return `<div class="appicon" data-app="${a.id}">
+    <div class="glyph" style="background:${a.bg}">${a.icon}${a.badge?`<span class="badge">${a.badge}</span>`:""}</div>
+    <span class="lbl">${a.label}</span>
+  </div>`;
+}
+function buildHome(){
+  $("#appgrid").innerHTML = apps.map(iconHTML).join("");
+  $("#dock").innerHTML = dockApps.map(id=>iconHTML(apps.find(a=>a.id===id))).join("");
+  document.querySelectorAll("#appgrid .appicon, #dock .appicon").forEach(el=>{
+    el.addEventListener("click",()=>openApp(el.dataset.app));
+  });
+}
+
+/* ============================================================
+   RENDER DE CADA APP
+   ============================================================ */
+function renderApp(){
+  const map = {
+    mensagens: renderMensagens,
+    banco: renderBanco,
+    cameras: renderCameras,
+    galeria: renderGaleria,
+    ligacoes: renderLigacoes,
+    local: renderLocal,
+    notas: renderNotas,
+    arquivos: renderArquivos,
+    cofre: renderCofre,
+    lixeira: renderLixeira,
+    contatos: renderContatos,
+    linha: renderLinha,
+    pistas: renderPistas,
+    inquerito: renderInquerito,
+  };
+  (map[state.app]||renderFallback)();
+}
+function setHead(title,sub){ $("#apptitle").textContent=title; $("#appsub").textContent=sub||""; }
+function renderFallback(){ setHead("App"); $("#appbody").innerHTML = `<div class="empty">Conteúdo não encontrado.</div>`; }
+
+/* ---- Mensagens ---- */
+function renderMensagens(){
+  if(state.sub){
+    const s = bySuspect(state.sub);
+    setHead(s.name, s.role);
+    const list = messages[s.id]||[];
+    $("#appbody").innerHTML = `<div class="thread">` + list.map(m=>`
+      <div class="bubblewrap ${m.who}">
+        <div class="bubble">${esc(m.t)}</div>
+        <div class="btime">${m.time!=="—"?m.time:"horário indisponível"}</div>
+      </div>`).join("") + `</div>`;
+    return;
+  }
+  setHead("Mensagens","6 conversas");
+  $("#appbody").innerHTML = suspects.map(s=>{
+    const last = (messages[s.id]||[]).slice(-1)[0];
+    return `<div class="row" data-sub="${s.id}">
+      <div class="avatar" style="background:${s.color}">${s.avatar}</div>
+      <div class="main">
+        <div class="name">${s.name} <span style="color:var(--text-faint);font-weight:500">· ${s.role}</span></div>
+        <div class="prev">${last?esc(last.t):""}</div>
+      </div>
+      <div class="meta">${last?last.time:""}</div>
+    </div>`;
+  }).join("");
+  document.querySelectorAll("#appbody .row").forEach(el=>el.addEventListener("click",()=>{ state.sub=el.dataset.sub; renderApp(); }));
+}
+
+/* ---- Banco ---- */
+function renderBanco(){
+  setHead("Banco Nimbus","Extratos anexados ao inquérito");
+  function txnRow(t){
+    return `<div class="txn">
+      <div>
+        <div class="t-name">${esc(t.name)}</div>
+        <div class="t-sub">${esc(t.sub)} · ${t.time}</div>
+        ${t.flag?`<div class="flag">${esc(t.flag)}</div>`:""}
+      </div>
+      <div class="t-amt ${t.amt<0?'neg':'pos'}">${t.amt<0?'-':'+'} R$ ${Math.abs(t.amt).toLocaleString('pt-BR')}</div>
+    </div>`;
+  }
+  $("#appbody").innerHTML = `
+    <div class="balancecard"><div class="who">Conta de Bianca Ferreira</div><div class="amt">R$ 212,00</div></div>
+    <div class="sectionlbl">Extrato — Bianca Ferreira</div>
+    ${bankBianca.map(txnRow).join("")}
+    <div class="sectionlbl">Extrato — Eduardo Lima (padrasto, obtido por ordem judicial)</div>
+    ${bankEduardo.map(txnRow).join("")}
+  `;
+}
+
+/* ---- Câmeras ---- */
+function renderCameras(){
+  setHead("Câmeras","3 gravações relevantes");
+  $("#appbody").innerHTML = cameras.map(c=>`
+    <div class="camcard">
+      <div class="camfeed"><span class="ts">${c.ts}</span>📹</div>
+      <div class="caminfo"><div class="cname">${esc(c.name)}</div><div class="cdesc">${esc(c.desc)}</div></div>
+    </div>`).join("");
+}
+
+/* ---- Galeria ---- */
+function renderGaleria(){
+  setHead("Galeria","Evidências fotográficas");
+  const bgs=["#2c3a4a","#3a2c4a","#2c4a3a","#4a3a2c","#4a2c3a","#2c4a4a"];
+  $("#appbody").innerHTML = `<div class="gallerygrid">` + gallery.map((g,i)=>`
+    <div class="gtile" style="background:${bgs[i%bgs.length]}">${g.e}<span class="gcap">${esc(g.cap)}</span></div>`).join("") + `</div>`;
+}
+
+/* ---- Ligações ---- */
+function renderLigacoes(){
+  setHead("Ligações","Histórico recente");
+  const arrows = {in:"↙ Recebida", out:"↗ Realizada", miss:"⚠ Perdida"};
+  $("#appbody").innerHTML = calls.map(c=>{
+    const s = c.who?bySuspect(c.who):null;
+    return `<div class="row" style="cursor:default">
+      <div class="avatar" style="background:${s?s.color:'#4a2c2c'}">${s?s.avatar:"❓"}</div>
+      <div class="main">
+        <div class="name">${s?s.name:c.label}${c.flag?' <span style="color:var(--accent);font-size:10px;">⚑</span>':''}</div>
+        <div class="prev">${arrows[c.dir]} · ${c.dur}</div>
+      </div>
+      <div class="meta">${c.time}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ---- Localização ---- */
+function renderLocal(){
+  setHead("Localização","Últimos registros de GPS");
+  $("#appbody").innerHTML = `<div class="tl">` + locations.map(l=>`
+    <div class="tlitem"><div class="ttime">${l.t}</div><div class="ttext">${esc(l.place)}</div></div>`).join("") + `</div>
+    <div class="empty">Nenhum sinal registrado após 22h50 de sábado.</div>`;
+}
+
+/* ---- Notas ---- */
+function renderNotas(){
+  setHead("Notas","5 notas");
+  $("#appbody").innerHTML = `<div class="papergrid">` + notes.map(n=>`
+    <div class="paper"><span class="stamp">${n.date}</span><div>${esc(n.body)}</div></div>`).join("") + `</div>`;
+}
+
+/* ---- Arquivos ---- */
+function renderArquivos(){
+  if(state.sub){
+    const f = files.find(x=>x.name===state.sub);
+    setHead(f.name, f.size);
+    $("#appbody").innerHTML = `<div class="papergrid"><div class="paper">
+      ${f.flag?`<span class="stamp">${esc(f.flag)}</span>`:""}
+      <div style="white-space:pre-line">${esc(f.body)}</div>
+    </div></div>`;
+    return;
+  }
+  setHead("Arquivos","Documentos anexados");
+  $("#appbody").innerHTML = files.map(f=>`
+    <div class="row" data-sub="${esc(f.name)}">
+      <div class="avatar" style="background:#2a2f3a">${f.icon}</div>
+      <div class="main"><div class="name">${f.name}</div><div class="prev">${f.size}</div></div>
+    </div>`).join("");
+  document.querySelectorAll("#appbody .row").forEach(el=>el.addEventListener("click",()=>{ state.sub=el.dataset.sub; renderApp(); }));
+}
+
+/* ---- Cofre (arquivo azul bloqueado) ---- */
+function renderCofre(){
+  setHead("Arquivo Azul", vaultUnlocked?"Desbloqueado":"Protegido por código");
+  if(vaultUnlocked){
+    $("#appbody").innerHTML = `<div class="papergrid"><div class="paper">
+      <span class="stamp">carta pessoal</span>
+      Tia Marta,<br><br>Se você está lendo isso, é porque eu consegui sair. Eu não aguento mais viver com o Eduardo do jeito que as coisas estão. Combinei com a Camila e comprei uma passagem para Guarapari — só ela sabe.<br><br>Por favor não conta pra minha mãe até eu ligar. Preciso de um tempo longe daqui.<br><br>Bia
+    </div></div>
+    <div class="empty">Este é o conteúdo do "arquivo azul" citado nas notas de Bianca. Ele reforça a hipótese de fuga voluntária — mas não explica o carro prateado nem por que ela não embarcou no ônibus.</div>`;
+    return;
+  }
+  $("#appbody").innerHTML = `<div class="vault">
+    <div class="vaulticon">🔒</div>
+    <h3>Arquivo protegido</h3>
+    <p>Um item chamado "arquivo azul" está protegido por um código de 4 dígitos. Bianca escreveu uma pista sobre ele em suas notas.</p>
+    <div class="vdots" id="vdots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="vaultkeys" id="vkeys"></div>
+  </div>`;
+  const layout=["1","2","3","4","5","6","7","8","9","","0","⌫"];
+  const kp = $("#vkeys");
+  layout.forEach(k=>{
+    const b=document.createElement("div");
+    b.className="vkey"+(k===""?"":"");
+    if(k===""){ b.style.visibility="hidden"; }
+    b.textContent=k;
+    if(k!=="") b.addEventListener("click",()=>vaultKey(k));
+    kp.appendChild(b);
+  });
+  vaultCode="";
+  renderVaultDots();
+}
+function renderVaultDots(){
+  const dots=$("#vdots").children;
+  for(let i=0;i<4;i++) dots[i].className="dot"+(i<vaultCode.length?" filled":"");
+}
+function vaultKey(k){
+  if(k==="⌫"){ vaultCode=vaultCode.slice(0,-1); renderVaultDots(); return; }
+  if(vaultCode.length>=4) return;
+  vaultCode+=k; renderVaultDots();
+  if(vaultCode.length===4){
+    if(vaultCode===VAULT_CODE){
+      vaultUnlocked=true;
+      try{ sessionStorage.setItem("cofreUnlocked","1"); }catch(e){}
+      setTimeout(renderCofre,150);
+    } else {
+      $("#vdots").classList.add("shake");
+      setTimeout(()=>{ $("#vdots").classList.remove("shake"); vaultCode=""; renderVaultDots(); },500);
+    }
+  }
+}
+
+/* ---- Lixeira ---- */
+function renderLixeira(){
+  setHead("Lixeira","Itens apagados e recuperados");
+  $("#appbody").innerHTML = deletedMessages.map(d=>`
+    <div class="row" style="cursor:default;align-items:flex-start;">
+      <div class="avatar" style="background:#4a2c2c">🗑️</div>
+      <div class="main">
+        <div class="name">${d.from==="thiago"?"Mensagem de Thiago":d.from==="foto"?"Foto apagada":"Nota de voz apagada"} <span style="color:var(--text-faint);font-weight:500">· ${d.time}</span></div>
+        <div class="prev" style="white-space:normal">${esc(d.t)}</div>
+        <div style="font-size:10.5px;color:var(--text-faint);margin-top:4px;">${esc(d.note)}</div>
+      </div>
+    </div>`).join("");
+}
+
+/* ---- Contatos ---- */
+function renderContatos(){
+  setHead("Contatos","10 contatos");
+  const all = [...suspects, ...others];
+  $("#appbody").innerHTML = all.map(c=>`
+    <div class="row" style="cursor:default">
+      <div class="avatar" style="background:${c.color}">${c.avatar}</div>
+      <div class="main"><div class="name">${c.name}</div><div class="prev">${c.role}</div></div>
+      <div class="meta">${c.phone}</div>
+    </div>`).join("");
+}
+
+/* ---- Linha do tempo ---- */
+function renderLinha(){
+  setHead("Linha do Tempo","Reconstituição completa");
+  $("#appbody").innerHTML = `<div class="tl">` + timeline.map(t=>`
+    <div class="tlitem"><div class="ttime">${t.t}</div><div class="ttext">${esc(t.txt)}</div></div>`).join("") + `</div>`;
+}
+
+/* ---- Pistas ---- */
+function renderPistas(){
+  setHead("Pistas","Toque para expandir cada evidência");
+  $("#appbody").innerHTML = clues.map((c,i)=>`
+    <div class="cluecard">
+      <div class="clueh" data-i="${i}">
+        <div class="gl">${c.icon}</div>
+        <div class="ct"><b>${esc(c.title)}</b><span>${esc(c.where)}</span></div>
+        <div class="chk">${openClue===i?"▲":"▼"}</div>
+      </div>
+      <div class="cluebody ${openClue===i?"open":""}">${esc(c.body)}</div>
+    </div>`).join("");
+  document.querySelectorAll("#appbody .clueh").forEach(el=>el.addEventListener("click",()=>{
+    const i = Number(el.dataset.i);
+    openClue = (openClue===i)?null:i;
+    renderApp();
+  }));
+}
+
+/* ---- Inquérito ---- */
+function renderInquerito(){
+  setHead("Inquérito","Resumo do caso e hipóteses");
+  $("#appbody").innerHTML = `
+  <div class="papergrid"><div class="paper">
+    <span class="stamp">boletim de ocorrência</span>
+    Vítima: Bianca Ferreira, 17 anos, estudante do 3º ano.\nAcionamento: Polícia Militar acionada às 06h55 de domingo pela mãe, Sandra Ferreira, ao notar a ausência da filha.\nÚltimo registro do aparelho: sábado, 22h50.\nStatus: desaparecimento, causas ainda não esclarecidas.\n\nSeis pessoas próximas foram ouvidas como parte da apuração. O caso permanece em aberto — cabe à equipe investigadora reunir as evidências do aparelho e sustentar, com base nelas, qual das hipóteses abaixo é mais provável.
+  </div></div>
+  <div class="sectionlbl">Hipóteses</div>
+  ${hypotheses.map(h=>`
+    <div class="hypo">
+      <h3>${esc(h.title)}</h3>
+      <div class="cols">
+        <div class="col favor"><b>A favor</b><ul>${h.favor.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+        <div class="col contra"><b>Contra</b><ul>${h.contra.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+      </div>
+    </div>`).join("")}
+  `;
+}
+
+/* ---------- responsividade: escala o "celular" para caber em qualquer tela ---------- */
+const PHONE_W = 378, PHONE_H = 788;
+function fitPhone(){
+  const stage = $(".stagewrap"), phone = $(".phone");
+  if(!stage || !phone) return;
+  const gutter = 32; // margem lateral mínima preservada
+  const availW = Math.max(240, window.innerWidth - gutter);
+  const scale = Math.min(1, availW/PHONE_W);
+  phone.style.transform = "scale("+scale+")";
+  stage.style.width = (PHONE_W*scale)+"px";
+  stage.style.height = (PHONE_H*scale)+"px";
+}
+window.addEventListener("resize", fitPhone);
+window.addEventListener("orientationchange", fitPhone);
+fitPhone();
+
+/* ---------- hot reload support ---------- */
+function boot(data){
+  buildHome();
+  fitPhone();
+}
+if(window.claude && window.claude.hot){
+  window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data||{});
+} else {
+  boot({});
+}
+})();
+</script>
